@@ -1,15 +1,28 @@
 class Solution:
-    def merge(self, nums: List[List[int]]) -> List[List[int]]:
-        nums.sort()
+    def insert(self, nums: List[List[int]], newinterval: List[int]) -> List[List[int]]:
+        new = []
+        insert = False
         n = len(nums)
         res = []
 
-        start1 = nums[0][0]
-        end1 = nums[0][1]
+        for i in range(n):
+            start = nums[i][0]
 
-        for i in range(1, n):
-            start2 = nums[i][0]
-            end2 = nums[i][1]
+            if insert == False and start >= newinterval[0]:
+                new.append(newinterval)
+                insert = True
+
+            new.append(nums[i])
+
+        if insert == False:
+            new.append(newinterval)
+
+        start1 = new[0][0]
+        end1 = new[0][1]
+
+        for i in range(1, len(new)):
+            start2 = new[i][0]
+            end2 = new[i][1]
 
             if end1 >= start2:
                 end1 = max(end1, end2)
